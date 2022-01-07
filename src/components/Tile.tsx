@@ -20,7 +20,7 @@ const backgroundClassByStatus = {
 export function Tile<TileProps>({ letter = "", status = TileStatus.Open }) {
   return (
     <td>
-      <input className={backgroundClassByStatus[status]}></input>
+      <input maxLength={1} className={backgroundClassByStatus[status]}></input>
     </td>
   );
 }
