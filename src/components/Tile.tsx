@@ -20,13 +20,6 @@ const backgroundClassByStatus = {
   [TileStatus.Correct]: "tile-correct",
 };
 
-const lettersRegEx: RegExp = /^[a-zA-Z]+$/;
-
-const characterIsLetter = (letter: string) => lettersRegEx.test(letter);
-const stringIsOneCharacter = (testString: string) => testString.length == 1;
-const inputIsValid = (input: string) =>
-  characterIsLetter(input) && stringIsOneCharacter(input);
-
 export function Tile<TileProps>({
   letter = "",
   status = TileStatus.Open,
@@ -36,7 +29,7 @@ export function Tile<TileProps>({
 
   const handleUserInput: KeyboardEventHandler<HTMLInputElement> = (e) => {
     const pressedKey: string = e.key;
-    if (pressedKey && inputIsValid(pressedKey)) {
+    if (pressedKey) {
       setTileValue(pressedKey);
     }
   };
@@ -44,6 +37,7 @@ export function Tile<TileProps>({
   return (
     <td>
       <input
+        maxLength={1}
         className={backgroundClassByStatus[status]}
         value={tileValue}
         onKeyDown={handleUserInput}
