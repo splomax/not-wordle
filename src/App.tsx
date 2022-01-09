@@ -11,6 +11,7 @@ function App() {
   const handleNewGameButtonClick = () => {
     startNewGame(puzzleLength)
       .then(() => {
+        debugger;
         setGameHasStarted(true);
       })
       .catch(() => {
