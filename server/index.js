@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const newGame = require("../src/api/newGame");
+const { newGame } = require("./newGame");
 
 const PORT = process.env.PORT || 3001;
 

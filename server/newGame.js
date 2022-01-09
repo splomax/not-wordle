@@ -20,15 +20,15 @@ function getWordOfLength(length) {
   return word;
 }
 
-function writeNewGameFile(currentGameId, newWord) {
+function writeNewGameFile(newGameId, newWord) {
   const csvStream = csv.format();
-  const writeStream = fs.createWriteStream(`games/${uuid}.csv`);
+  const writeStream = fs.createWriteStream(`games/${newGameId}.csv`);
   csvStream.pipe(writeStream).on("end", () => process.exit());
   csvStream.write({ word: newWord, numberOfGuesses: 0 });
   csvStream.end();
 }
 
-export default function newGame(currentGameId, wordLength) {
+function createNewGame(currentGameId, wordLength) {
   if (currentGameId) {
     removeOldGame(currentGameId);
   }
@@ -37,3 +37,5 @@ export default function newGame(currentGameId, wordLength) {
   writeNewGameFile(newGameId, newWord);
   return newGameId;
 }
+
+exports.newGame = createNewGame;
