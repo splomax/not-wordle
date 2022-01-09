@@ -7,8 +7,9 @@ export const HIDDEN_CLASS = "hidden";
 
 function App() {
   const [gameHasStarted, setGameHasStarted] = useState(false);
+  const [puzzleLength, setPuzzleLength] = useState(6);
   const handleNewGameButtonClick = () => {
-    startNewGame()
+    startNewGame(puzzleLength)
       .then(() => {
         setGameHasStarted(true);
       })
@@ -20,6 +21,14 @@ function App() {
   return (
     <div className="app-container">
       <button onClick={handleNewGameButtonClick}>New Game</button>
+      Length:
+      <input
+        value={puzzleLength}
+        onChange={(event) => {
+          // @ts-ignore
+          setPuzzleLength(event.target.value);
+        }}
+      />
       <Table gameHasStarted={gameHasStarted} />
     </div>
   );

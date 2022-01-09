@@ -4,5 +4,6 @@ import axios from "axios";
 const HOST = "localhost";
 const PORT = "3001";
 
-//axios.get(`${host}:${port}/api/categories`)
-export const startNewGame = () => axios.post(`http://${HOST}:${PORT}/new-game`);
+//TODO: https
+export const startNewGame = (length) =>
+  axios.post(`http://${HOST}:${PORT}/new-game`, { length: length });
