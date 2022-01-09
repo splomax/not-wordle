@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const { newGame } = require("./newGame");
+const { makeGuess } = require("./makeGuess");
 
 const PORT = process.env.PORT || 3001;
 
@@ -25,6 +26,10 @@ app.post("/new-game", async (req, res) => {
   const currentGameId = req.body.currentGameId;
   const newGameId = newGame(currentGameId, length);
   res.json({ newGameId: newGameId });
+});
+
+app.put("/make-guess", (req, res) => {
+  makeGuess(req.body.guess, req.body.gameId);
 });
 
 app.listen(PORT, () => {

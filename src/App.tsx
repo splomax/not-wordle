@@ -2,16 +2,19 @@ import React, { useState } from "react";
 import "./App.css";
 import { Table } from "./components/Table";
 import { startNewGame } from "./api/actions";
+import { getNotWordleCookie } from "./util/cookies";
 
 export const HIDDEN_CLASS = "hidden";
 
 function App() {
   const [gameHasStarted, setGameHasStarted] = useState(false);
   const [puzzleLength, setPuzzleLength] = useState(6);
+  const [gameId, setGameId] = useState(getNotWordleCookie());
+  console.log(`gameId: ${gameId}`);
   const handleNewGameButtonClick = () => {
     startNewGame(puzzleLength)
-      .then(() => {
-        debugger;
+      .then((newGameId) => {
+        setGameId(newGameId);
         setGameHasStarted(true);
       })
       .catch(() => {
@@ -30,7 +33,11 @@ function App() {
           setPuzzleLength(event.target.value);
         }}
       />
-      <Table gameHasStarted={gameHasStarted} />
+      <Table
+        gameId={gameId}
+        puzzleLength={puzzleLength}
+        gameHasStarted={gameHasStarted}
+      />
     </div>
   );
 }

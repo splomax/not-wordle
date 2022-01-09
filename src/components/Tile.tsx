@@ -12,6 +12,7 @@ export interface TileProps {
   onInputChanged: Function;
   onTileClick: MouseEventHandler;
   disabled: boolean;
+  tileValue: string;
 }
 
 export enum TileStatus {
@@ -34,8 +35,8 @@ export function Tile({
   onInputChanged,
   onTileClick,
   disabled = true,
+  tileValue,
 }: TileProps) {
-  const [tileValue, setTileValue] = useState("");
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -45,10 +46,9 @@ export function Tile({
     }
   }, [selected]);
 
-  const handleUserInput: KeyboardEventHandler<HTMLInputElement> = (e) => {
+  const handleUserInput: KeyboardEventHandler = (e) => {
     const pressedKey: string = e.key;
     if (pressedKey) {
-      setTileValue(pressedKey);
       onInputChanged(pressedKey);
     }
   };
