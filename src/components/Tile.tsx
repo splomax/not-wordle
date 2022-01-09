@@ -11,6 +11,7 @@ export interface TileProps {
   selected: boolean;
   onInputChanged: Function;
   onTileClick: MouseEventHandler;
+  disabled: boolean;
 }
 
 export enum TileStatus {
@@ -32,6 +33,7 @@ export function Tile({
   selected = false,
   onInputChanged,
   onTileClick,
+  disabled = true,
 }: TileProps) {
   const [tileValue, setTileValue] = useState("");
   const inputRef = useRef(null);
@@ -54,6 +56,7 @@ export function Tile({
   return (
     <td>
       <input
+        disabled={disabled}
         ref={inputRef}
         maxLength={1}
         className={backgroundClassByStatus[status]}

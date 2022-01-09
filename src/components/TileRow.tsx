@@ -1,12 +1,20 @@
 import { Tile } from "./Tile";
 import { Component, useState } from "react";
+import { HIDDEN_CLASS } from "../App";
 
 export interface TileRowProps {
   length: number;
   active: boolean;
+  gameHasStarted: boolean;
+  rowIndex: number;
 }
 
-export function TileRow({ length = 5, active = false }: TileRowProps) {
+export function TileRow({
+  length = 5,
+  active = false,
+  gameHasStarted = false,
+  rowIndex,
+}: TileRowProps) {
   const [indexOfSelectedTile, setIndexOfSelectedTile] = useState(0);
 
   const handleTileValueChanged = (tileValue: string) => {
@@ -24,6 +32,8 @@ export function TileRow({ length = 5, active = false }: TileRowProps) {
   for (let i = 0; i < length; i++) {
     tiles = tiles.concat(
       <Tile
+        key={`row-${rowIndex}-tile-${i}`}
+        disabled={!gameHasStarted || !active}
         onInputChanged={handleTileValueChanged}
         selected={active && indexOfSelectedTile === i}
         onTileClick={() => {
@@ -32,8 +42,11 @@ export function TileRow({ length = 5, active = false }: TileRowProps) {
       />
     );
   }
+
   tiles = tiles.concat(
-    <button disabled={indexOfSelectedTile < length}>&#x2192;</button>
+    <td key={`row-${rowIndex}-submit-button`}>
+      <button disabled={indexOfSelectedTile < length}>&#x2192;</button>
+    </td>
   );
   return <tr>{tiles}</tr>;
 }
