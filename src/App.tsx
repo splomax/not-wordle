@@ -8,7 +8,7 @@ export const HIDDEN_CLASS = "hidden";
 
 function App() {
   const [gameHasStarted, setGameHasStarted] = useState(false);
-  const [puzzleLength, setPuzzleLength] = useState(6);
+  const [puzzleLength, setPuzzleLength] = useState(5);
   const [gameId, setGameId] = useState(getNotWordleCookie());
   const handleNewGameButtonClick = () => {
     startNewGame(puzzleLength)

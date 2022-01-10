@@ -1,7 +1,6 @@
 const { v4: uuidv4 } = require("uuid");
 const fs = require("fs");
 const csv = require("fast-csv");
-const randomWord = require("random-word-by-length");
 
 async function getExistingGame(gameId) {
   let word, numberOfGuesses;

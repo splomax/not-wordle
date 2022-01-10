@@ -24,7 +24,7 @@ app.use(
 app.post("/new-game", async (req, res) => {
   const length = parseInt(req.body.length);
   const currentGameId = req.body.currentGameId;
-  const newGameId = newGame(currentGameId, length);
+  const newGameId = await newGame(currentGameId, length);
   res.json({ newGameId: newGameId });
 });
 
