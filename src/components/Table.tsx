@@ -1,6 +1,6 @@
 import { TileRow } from "./TileRow";
 import { useState } from "react";
-import { Tile } from "./Tile";
+import { Tile } from "./Tile/Tile";
 
 export interface TableProps {
   puzzleLength?: number;

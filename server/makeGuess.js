@@ -85,13 +85,12 @@ function generateResponse(solution, guess) {
         occurrencesOfCharacterInSolution - 1;
     }
   }
-  console.log(`response: ${response}`);
   return response;
 }
 
 async function makeGuess(guess, gameId) {
   const { word, numberOfGuesses } = await getExistingGame(gameId);
-  generateResponse(word, guess.join(""));
+  return generateResponse(word, guess.join(""));
 }
 
 exports.makeGuess = makeGuess;

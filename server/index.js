@@ -28,8 +28,10 @@ app.post("/new-game", async (req, res) => {
   res.json({ newGameId: newGameId });
 });
 
-app.put("/make-guess", (req, res) => {
-  makeGuess(req.body.guess, req.body.gameId);
+app.put("/make-guess", async (req, res) => {
+  const response = await makeGuess(req.body.guess, req.body.gameId);
+  console.log("returning: " + response);
+  res.json({ response });
 });
 
 app.listen(PORT, () => {

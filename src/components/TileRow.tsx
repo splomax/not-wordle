@@ -1,5 +1,5 @@
-import { Tile } from "./Tile";
-import { Component, useState } from "react";
+import { Tile } from "./Tile/Tile";
+import { Component, useEffect, useState } from "react";
 import { HIDDEN_CLASS } from "../App";
 import { makeGuess } from "../api/actions";
 
@@ -11,13 +11,17 @@ export interface TileRowProps {
   gameId: string;
 }
 
-function buildEmptyLetterArray(length: number) {
-  let defaultLetters: string[] = [];
+function buildEmptyArray(length: number, defaultValue: any = "") {
+  let emptyArray: any[] = [];
   for (let i = 0; i < length; i++) {
-    defaultLetters = defaultLetters.concat("");
+    emptyArray = emptyArray.concat(defaultValue);
   }
-  return defaultLetters;
+  return emptyArray;
 }
+
+const buildEmptyLetterArray = (length: number) => buildEmptyArray(length);
+
+const buildEmptyTileStatuses = (length: number) => buildEmptyArray(0);
 
 export function TileRow({
   length = 5,
@@ -27,8 +31,16 @@ export function TileRow({
   gameId,
 }: TileRowProps) {
   const [indexOfSelectedTile, setIndexOfSelectedTile] = useState(0);
-  let defaultLetters: string[] = buildEmptyLetterArray(length);
-  const [letters, setLetters] = useState(defaultLetters);
+  const [letters, setLetters] = useState(new Array<string>());
+  const [tileStatuses, setTileStatuses] = useState(new Array<number>());
+  const [rowDisabled, setRowDisabled] = useState(false);
+
+  useEffect(() => {
+    let defaultTileStatuses: number[] = buildEmptyTileStatuses(length);
+    let defaultLetters: string[] = buildEmptyLetterArray(length);
+    setLetters(defaultLetters);
+    setTileStatuses(defaultTileStatuses);
+  }, [length]);
 
   const handleTileValueChanged = (letter: string, indexOfTile: number) => {
     setIndexOfSelectedTile(indexOfSelectedTile + 1);
@@ -41,8 +53,9 @@ export function TileRow({
   };
 
   const handleSubmitClick = async () => {
-    debugger;
-    await makeGuess(letters, gameId);
+    setRowDisabled(true);
+    const guessResponse: Array<number> = await makeGuess(letters, gameId);
+    setTileStatuses(guessResponse);
   };
 
   let tiles: Array<JSX.Element> = [];
@@ -50,7 +63,7 @@ export function TileRow({
     tiles = tiles.concat(
       <Tile
         key={`row-${rowIndex}-tile-${i}`}
-        disabled={!gameHasStarted || !active}
+        disabled={!gameHasStarted || !active || rowDisabled}
         onInputChanged={(letter: string) => {
           handleTileValueChanged(letter, i);
         }}
@@ -59,6 +72,7 @@ export function TileRow({
           handleTileClick(i);
         }}
         tileValue={letters[i]}
+        status={tileStatuses[i]}
       />
     );
   }

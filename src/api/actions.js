@@ -23,12 +23,15 @@ export const startNewGame = (length) => {
 };
 
 export const makeGuess = (guess, gameId) => {
-  return axios
-    .put(`http://${HOST}:${PORT}/make-guess`, {
-      guess: guess,
-      gameId: gameId,
-    })
-    .then((response) => {
-      debugger;
-    });
+  return new Promise((resolve, reject) => {
+    axios
+      .put(`http://${HOST}:${PORT}/make-guess`, {
+        guess: guess,
+        gameId: gameId,
+      })
+      .then((res) => {
+        const { response } = res.data;
+        resolve(response);
+      });
+  });
 };

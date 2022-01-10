@@ -3,8 +3,8 @@ import React, {
   MouseEventHandler,
   useEffect,
   useRef,
-  useState,
 } from "react";
+import "./Tile.css";
 
 export interface TileProps {
   status?: TileStatus;

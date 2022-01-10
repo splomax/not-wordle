@@ -1,0 +1,12 @@
+.tile-incorrect {
+    background-color: red;
+    color: white;
+}
+.tile-correct-letter-wrong-place {
+    background-color: yellow;
+    color: black;
+}
+.tile-correct {
+    background-color: green;
+    color: white;
+}

@@ -10,7 +10,6 @@ function App() {
   const [gameHasStarted, setGameHasStarted] = useState(false);
   const [puzzleLength, setPuzzleLength] = useState(6);
   const [gameId, setGameId] = useState(getNotWordleCookie());
-  console.log(`gameId: ${gameId}`);
   const handleNewGameButtonClick = () => {
     startNewGame(puzzleLength)
       .then((newGameId) => {
