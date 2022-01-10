@@ -31,16 +31,11 @@ export function TileRow({
   gameId,
 }: TileRowProps) {
   const [indexOfSelectedTile, setIndexOfSelectedTile] = useState(0);
-  const [letters, setLetters] = useState(new Array<string>());
-  const [tileStatuses, setTileStatuses] = useState(new Array<number>());
+  let defaultTileStatuses: number[] = buildEmptyTileStatuses(length);
+  let defaultLetters: string[] = buildEmptyLetterArray(length);
+  const [letters, setLetters] = useState(defaultLetters);
+  const [tileStatuses, setTileStatuses] = useState(defaultTileStatuses);
   const [rowDisabled, setRowDisabled] = useState(false);
-
-  useEffect(() => {
-    let defaultTileStatuses: number[] = buildEmptyTileStatuses(length);
-    let defaultLetters: string[] = buildEmptyLetterArray(length);
-    setLetters(defaultLetters);
-    setTileStatuses(defaultTileStatuses);
-  }, [length]);
 
   const handleTileValueChanged = (letter: string, indexOfTile: number) => {
     setIndexOfSelectedTile(indexOfSelectedTile + 1);
