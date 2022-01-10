@@ -14,6 +14,9 @@ export function Table({
   gameId,
 }: TableProps) {
   const [indexOfSelectedRow, setIndexOfSelectedRow] = useState(0);
+  const handleRowSubmit = () => {
+    setIndexOfSelectedRow(indexOfSelectedRow + 1);
+  };
   let tileRows: Array<JSX.Element> = [];
   for (let i = 0; i < puzzleLength; i++) {
     tileRows = tileRows.concat(
@@ -24,6 +27,7 @@ export function Table({
         gameHasStarted={gameHasStarted}
         length={puzzleLength}
         active={indexOfSelectedRow === i}
+        handleSubmit={handleRowSubmit}
       />
     );
   }

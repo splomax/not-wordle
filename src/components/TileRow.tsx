@@ -9,6 +9,7 @@ export interface TileRowProps {
   gameHasStarted: boolean;
   rowIndex: number;
   gameId: string;
+  handleSubmit: Function;
 }
 
 function buildEmptyArray(length: number, defaultValue: any = "") {
@@ -29,6 +30,7 @@ export function TileRow({
   gameHasStarted = false,
   rowIndex,
   gameId,
+  handleSubmit,
 }: TileRowProps) {
   const [indexOfSelectedTile, setIndexOfSelectedTile] = useState(0);
   let defaultTileStatuses: number[] = buildEmptyTileStatuses(length);
@@ -51,6 +53,7 @@ export function TileRow({
     setRowDisabled(true);
     const guessResponse: Array<number> = await makeGuess(letters, gameId);
     setTileStatuses(guessResponse);
+    handleSubmit();
   };
 
   let tiles: Array<JSX.Element> = [];
